@@ -5,7 +5,7 @@ require __DIR__ . "/sequel.php";
 
 class KitchenManager extends Sequel{
 
-    private $db_name;
+    public $app_session_prefix;
 
     public function __construct(){
 
@@ -16,7 +16,7 @@ class KitchenManager extends Sequel{
         $db_user = $_ENV['DB_USER'];
         $db_pass = $_ENV['DB_PASS'];
         $db_name = $_ENV['DB_NAME'];
-        $this->db_name = $db_name;
+        $this->app_session_prefix = $db_name;
 
         parent::__construct(new PDO("mysql:host=localhost;dbname=$db_name;charset=utf8mb4;", $db_user, $db_pass));
     }
@@ -32,8 +32,8 @@ class KitchenManager extends Sequel{
                 "item_name" => $name,
                 "item_stock" => $stock,
                 "item_restock" => $restock,
-                "item_category" => $category,
-                "item_location" => $location
+                "category_id" => $category,
+                "location_id" => $location
             )
         );
         return $item_id;
@@ -50,8 +50,8 @@ class KitchenManager extends Sequel{
                 "item_name" => $name,
                 "item_stock" => $stock,
                 "item_restock" => $restock,
-                "item_category" => $category,
-                "item_location" => $location
+                "category_id" => $category,
+                "location_id" => $location
             ),
             array('item_id' => $item_id)
         );

@@ -1,0 +1,65 @@
+
+
+
+
+
+<section class="categories">
+    <h2>CATEGORIES</h2>
+    <form method="post" action="">
+        <input type="hidden" name="form_type" value="<?php echo $_GET['catedit'] ? 'cat_edit' : 'category'; ?>">
+        name. <input type="text" name="name" placeholder="Name"><br>
+        <input type="submit" value="Save Category">
+    </form>
+    <table>
+        <thead>
+        <tr>
+            <th>NAME</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+        foreach($km->select('categories') as $cat){
+            echo '<tr>';
+            echo '<td>'.$cat['category_name'].'</td>';
+            echo '</tr>';
+        }
+        ?>
+        </tbody>
+    </table>
+</section>
+<section class="locations">
+    <h2>LOCATIONS</h2>
+    <form method="post" action="">
+        <input type="hidden" name="form_type" value="<?php echo $_GET['locedit'] ? 'loc_edit' : 'location'; ?>">
+        code. <input type="text" name="code" placeholder="Code"><br>
+        description. <input type="text" name="desc" placeholder="Description"><br>
+        <input type="submit" value="Save Location">
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>CODE</th>
+                <th>DESCRIPTION</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+                foreach($km->select('locations') as $loc){
+                    echo '<tr>';
+                    echo '<td>'.$loc['location_code'].'</td>';
+                    echo '<td>'.$loc['location_desc'].'</td>';
+                    echo '</tr>';
+                }
+            ?>
+        </tbody>
+    </table>
+</section>
+</div>
+
+
+        case 'category':
+            $km->category_add($_POST['name']);
+            break;
+        case 'location':
+            $km->location_add($_POST['code'], $_POST['desc']);
+            break;
